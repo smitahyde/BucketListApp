@@ -27,6 +27,19 @@ var userSchema = new Schema({
 	
 });
 
+userSchema.methods.comparePassword = function(candidatePassword, callback){
+
+	//this.password is our hashed and salted password
+bcrypt.compare(candidatePassword, this.password,function(err,isMatch){
+	//if there was an error, return the callback with error
+	if (err) {return callback(err); }
+	//otherwise call the callback
+	callback(null, isMatch);
+	
+	});
+
+}
+
 
 
 var model = mongoose.model('user', userSchema);
