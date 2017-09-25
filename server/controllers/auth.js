@@ -8,11 +8,6 @@ function createUserToken(user){
 }
 
 exports.signup = function(req, res, next){
-exports.signin = function(req,res,next){
-	res.send({token: createUserToken(req.user)});
-	//User has already had their email and pw auth
-	//We just need to give them a token
-}
 
 
 	
