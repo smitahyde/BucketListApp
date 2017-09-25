@@ -1,24 +1,39 @@
 import React, { Component, PropTypes } from 'react';
 import { reduxForm } from 'redux-form';
-import { createPost } from '../../actions/index';
+import { fetchPost, updatePost } from '../../actions/index';
 import { Link } from 'react-router';
+import axios from 'axios';
 
-class ListItem extends Component {
-	handleFormSubmit(formProps) {
-		//call action creator to sign up the user
-		this.props.createPost(formProps);
+const ROOT_URL = 'http://localhost:3000';
+
+const config = {
+	headers: { authorization: localStorage.getItem('token') }
+}
+
+class UpdateList extends Component {
+	
+	componentWillMount() {
+		this.props.fetchPost(this.props.params.id);
 	}
-	render() {
-		const {fields: {title, topic, url, content}, handleSubmit} = this.props;
+	
+	componentDidMount() {
+		this.props.fetchPost(this.props.params.id);
+	}
+	
+	handleFormSubmit(formProps) {
+		this.props.updatePost(formProps, this.props.params.id);
+	}
+	
+	srender() {
+		const { fields: {title, topic, url, content}, handleSubmit } = this.props;
 		return (
 			<form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
-				<h3>Create a New Post</h3>
+				<h3>Update Post</h3>
 
 				<fieldset className="form-group">
 					<label>Title</label>
 					<input type="text" className="form-control" {...title} />
 				</fieldset>
-
 				<fieldset className="form-group">
 					<label>Category</label>
 					<input type="text" className="form-control" {...topic} />
@@ -38,3 +53,24 @@ class ListItem extends Component {
 		);
 	}
 }
+
+UpdateList.propTypes = {
+	fields: PropTypes.object.isRequired,
+	handleSubmit: PropTypes.func.isRequired,
+	fetchPost: PropTypes.func.isRequired
+}
+
+function mapStateToProps(state) {
+	return { initialValues: state.posts.post };
+}
+
+const fields = ['title', 'topic', 'url', 'content']
+
+export default reduxForm({
+	form: 'UpdateNewForm',
+	fields: fields
+},
+
+mapStateToProps,
+
+{fetchPost, updatePost})(UpdateList);

@@ -11,6 +11,7 @@ import Video from './video/video'
       			<div>
 	      			<NavBarHeader />
               <Video />
+              {this.props.children}
 
       			</div>
     			);

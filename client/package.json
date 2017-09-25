@@ -20,13 +20,15 @@
     "axios": "^0.16.2",
     "babel-preset-stage-1": "^6.1.18",
     "lodash": "^4.17.4",
-    "react": "^0.14.3",
+    "react": "^0.14.9",
     "react-bootstrap": "^0.31.3",
-    "react-dom": "^0.14.3",
+    "react-dom": "^0.14.9",
     "react-redux": "^4.0.0",
     "react-router": "^2.0.1",
-    "redux": "^3.0.4",
+    "redux": "^3.7.2",
     "redux-form": "^5.3.6",
+    "redux-thunk": "^2.2.0",
+    "thunk": "0.0.1",
     "youtube-api-search": "0.0.5"
   },
   "description": ""
